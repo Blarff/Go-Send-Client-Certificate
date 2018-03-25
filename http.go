@@ -11,7 +11,8 @@ import (
 	"time"
 )
 
-// ReadPEMFile - function used to read private and public pem files
+// ReadPEMFile - function used to read private and public pem files.
+// Make sure that the .key file contains the header "DEK-Info"
 func ReadPEMFile(path, passphrase string) ([]byte, error) {
 	pass := []byte(passphrase)
 	var blocks []*pem.Block
@@ -103,7 +104,7 @@ func transport() *http.Transport {
 		RootCAs:      certPool,
 	}
 	tlsConfig.BuildNameToCertificate()
-	return &http.Transport{TLSClientConfig: tlsConfig}
+	return &http.Transports{TLSClientConfig: tlsConfig}
 }
 
 // HTTPClient - Instantiate HTTP Client
